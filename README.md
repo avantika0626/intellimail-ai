@@ -64,13 +64,13 @@ Professionals, operators, and developers spend hours every day managing cluttere
 ---
 
 ## 6. Live Demo
-- **Frontend (Vercel)**: [https://intellimail-ai.vercel.app](https://intellimail-ai.vercel.app) *(or your deployed Vercel URL)*
+- **Frontend (Vercel)**: [https://intellimail-ai-workspace.vercel.app](https://intellimail-ai-workspace.vercel.app)
 
 ---
 
 ## 7. Backend API
-- **Backend Service (Render)**: [https://intellimail-ai-backend.onrender.com](https://intellimail-ai-backend.onrender.com)
-- **Health Check Endpoint**: [https://intellimail-ai-backend.onrender.com/api/health](https://intellimail-ai-backend.onrender.com/api/health)
+- **Backend Service (Render)**: [https://intellimail-ai-x4tv.onrender.com](https://intellimail-ai-x4tv.onrender.com)
+- **Health Check Endpoint**: [https://intellimail-ai-x4tv.onrender.com/api/health](https://intellimail-ai-x4tv.onrender.com/api/health)
 
 ---
 
