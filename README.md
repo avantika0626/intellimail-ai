@@ -52,6 +52,59 @@ Professionals, operators, and developers spend hours every day managing cluttere
 
 ---
 
+## 📁 Project Architecture & File Structure
+
+```text
+intellimail-ai/
+├── 🌐 client/                           # Frontend Web Application (Next.js 14 + Tailwind CSS)
+│   ├── src/
+│   │   ├── components/                 # Modular React UI Components
+│   │   │   ├── ai/                     # Gemini AI Tools (Summary, Reply, Explain, Tasks, Dates)
+│   │   │   ├── email/                  # Google Mail Workspace (EmailList, EmailViewer, ComposeModal)
+│   │   │   ├── layout/                 # Top Header, Sidebar Navigation, AppShell Container
+│   │   │   └── ui/                     # Badges, Tooltips, Buttons
+│   │   ├── pages/                      # Next.js Application Routes
+│   │   │   ├── dashboard.js            # Main Google Mail Workspace
+│   │   │   ├── login.js & register.js  # Authentication Pages
+│   │   │   ├── analytics.js            # Email & AI Telemetry Dashboard
+│   │   │   ├── templates.js            # Canned Response Manager
+│   │   │   └── settings.js             # AI Preferences & Mailbox Controls
+│   │   ├── services/                   # Axios REST API Client
+│   │   ├── store/                      # Zustand Global State (mailStore, authStore)
+│   │   └── styles/                     # Tailwind & Google Sans Typography Tokens
+│   ├── .env.example                    # Client Environment Template
+│   ├── Dockerfile                      # Container Build Definition
+│   └── package.json
+│
+├── ⚡ server/                           # Backend REST API (Node.js + Express.js)
+│   ├── src/
+│   │   ├── config/                     # Database, OAuth, and Security Configurations
+│   │   ├── controllers/                # Route Logic Handlers (auth, gmail, ai, settings)
+│   │   ├── middleware/                 # Auth JWT Guard, Validation, and Error Handlers
+│   │   ├── models/                     # MongoDB Mongoose Schemas (User, Email, Template, Log)
+│   │   ├── routes/                     # Express API Endpoints
+│   │   ├── services/                   # Gmail API Client, AI Generator, and Crypto Service
+│   │   ├── utils/                      # Encryption (AES-256) and Token Helpers
+│   │   └── server.js                   # Express Application Bootstrap
+│   ├── test/                           # Automated Integration Test Suite (15/15 Passing)
+│   ├── .env.example                    # Backend Environment Template
+│   ├── Dockerfile                      # Container Build Definition
+│   └── package.json
+│
+├── 🛠️ scripts/                          # Automation & Verification Utilities
+│   ├── dev.js                          # 1-Command Full-Stack Development Launcher
+│   └── verify-routes.js                # Automated Route & Health Verification Script
+│
+├── 📄 DEPLOYMENT.md                     # Step-by-Step Production Cloud Deployment Manual
+├── 📄 README.md                         # Complete Project Documentation & Specification
+├── 🐳 docker-compose.yml                # Multi-Container Full-Stack Orchestration
+├── ☁️ render.yaml                       # Render Backend Blueprint Specification
+├── 📐 vercel.json                       # Vercel Modern Next.js Deployment Config
+└── 📦 package.json                      # Root Monorepo Scripts
+```
+
+---
+
 ## 5. Screenshots & Interface Overview
 
 ### 📬 Google Mail Workspace & AI Side Companion
