@@ -17,25 +17,25 @@
 ## 2. Problem Statement
 Professionals, operators, and developers spend hours every day managing cluttered inboxes, reading lengthy technical email threads, deciphering urgent requests, tracking deadlines across conversations, and drafting repetitive replies.
 
-**IntelliMail AI** solves this problem by providing an intelligent email workspace styled after **Google Mail (Gmail / Google Workspace)**. It automatically analyzes email context, extracts action items and deadlines into structured checklists, generates executive summaries, drafts multi-tone context-aware responses, and enables semantic natural-language email search—all while keeping humans in the loop with strict zero-trust security.
+**IntelliMail AI** solves this problem by providing an intelligent email workspace styled after Google Mail (Gmail / Google Workspace). It automatically analyzes email context, extracts action items and deadlines into structured checklists, generates executive summaries, drafts multi-tone context-aware responses, and enables semantic natural-language email search—all while keeping humans in the loop with strict zero-trust security.
 
 ---
 
 ## 3. Features
 
-### 🌟 Core Capabilities
-- **📥 Google Mail 3-Pane Workspace**: Familiar, clean Google Workspace interface featuring Primary/Promotions/Social categories, Starred, Sent, Drafts, Archive, and Trash.
-- **⚡ AI Email Summaries**: Instantly extracts concise executive summaries, key bullet points, and required actions from long conversations.
-- **✍️ Multi-Tone Smart Replies**: Generates context-aware response drafts across 6 distinct tones (*Professional, Friendly, Formal, Concise, Apologetic, Confident*).
-- **💡 "Explain This Email"**: Translates technical, formal, or legal email bodies into plain English with *"What this means"*, *"Action steps for you"*, and *"Deadlines"*.
-- **☑️ Interactive Action Item Extraction**: Automatically converts unstructured email paragraphs into checkable task lists.
-- **📅 Deadline & Milestone Detection**: Identifies submission dates, scheduled meetings, and milestone timeframes.
-- **📝 Unsent Email Draft Auto-Save**: Unsent emails in the compose window automatically save to the **Drafts** folder upon close or cancel.
-- **🔍 Semantic Smart Search**: Search messages using natural language queries (e.g., *"Show emails with invoices over $500"* or *"Security audits due this week"*).
-- **📊 Productivity Analytics**: Telemetry on incoming vs. sent email volume, AI operations usage, and estimated time saved.
-- **📑 Reusable Email Templates**: Library for saving, categorizing, and 1-click inserting canned responses into the composer.
-- **🛡️ Human-in-the-Loop Zero Trust**: AI drafts and assists, but emails are **never** auto-sent without explicit user confirmation.
-- **🔄 Dual Sandbox & Live OAuth 2.0**: Out-of-the-box offline sandbox mode with pre-seeded emails, plus full live Google Cloud OAuth 2.0 integration for real Gmail accounts.
+### Core Capabilities
+- **Google Mail 3-Pane Workspace**: Clean Google Workspace interface featuring Primary, Promotions, and Social categories, Starred, Sent, Drafts, Archive, and Trash.
+- **AI Email Summaries**: Instantly extracts concise executive summaries, key bullet points, and required actions from long conversations.
+- **Multi-Tone Smart Replies**: Generates context-aware response drafts across 6 distinct tones (Professional, Friendly, Formal, Concise, Apologetic, Confident).
+- **Explain This Email**: Translates technical, formal, or legal email bodies into plain English with "What this means", "Action steps for you", and "Deadlines".
+- **Interactive Action Item Extraction**: Automatically converts unstructured email paragraphs into checkable task lists.
+- **Deadline and Milestone Detection**: Identifies submission dates, scheduled meetings, and milestone timeframes.
+- **Unsent Email Draft Auto-Save**: Unsent emails in the compose window automatically save to the Drafts folder upon close or cancel.
+- **Semantic Smart Search**: Search messages using natural language queries (for example, "Show emails with invoices over $500" or "Security audits due this week").
+- **Productivity Analytics**: Telemetry on incoming vs. sent email volume, AI operations usage, and estimated time saved.
+- **Reusable Email Templates**: Library for saving, categorizing, and 1-click inserting canned responses into the composer.
+- **Human-in-the-Loop Zero Trust**: AI drafts and assists, but emails are never auto-sent without explicit user confirmation.
+- **Dual Sandbox and Live OAuth 2.0**: Out-of-the-box offline sandbox mode with pre-seeded emails, plus full live Google Cloud OAuth 2.0 integration for real Gmail accounts.
 
 ---
 
@@ -52,11 +52,11 @@ Professionals, operators, and developers spend hours every day managing cluttere
 
 ---
 
-## 📁 Project Architecture & File Structure
+## 5. Project Architecture & File Structure
 
 ```text
 intellimail-ai/
-├── 🌐 client/                           # Frontend Web Application (Next.js 14 + Tailwind CSS)
+├── client/                              # Frontend Web Application (Next.js 14 + Tailwind CSS)
 │   ├── src/
 │   │   ├── components/                 # Modular React UI Components
 │   │   │   ├── ai/                     # Gemini AI Tools (Summary, Reply, Explain, Tasks, Dates)
@@ -76,7 +76,7 @@ intellimail-ai/
 │   ├── Dockerfile                      # Container Build Definition
 │   └── package.json
 │
-├── ⚡ server/                           # Backend REST API (Node.js + Express.js)
+├── server/                              # Backend REST API (Node.js + Express.js)
 │   ├── src/
 │   │   ├── config/                     # Database, OAuth, and Security Configurations
 │   │   ├── controllers/                # Route Logic Handlers (auth, gmail, ai, settings)
@@ -91,48 +91,48 @@ intellimail-ai/
 │   ├── Dockerfile                      # Container Build Definition
 │   └── package.json
 │
-├── 🛠️ scripts/                          # Automation & Verification Utilities
+├── scripts/                             # Automation & Verification Utilities
 │   ├── dev.js                          # 1-Command Full-Stack Development Launcher
 │   └── verify-routes.js                # Automated Route & Health Verification Script
 │
-├── 📄 DEPLOYMENT.md                     # Step-by-Step Production Cloud Deployment Manual
-├── 📄 README.md                         # Complete Project Documentation & Specification
-├── 🐳 docker-compose.yml                # Multi-Container Full-Stack Orchestration
-├── ☁️ render.yaml                       # Render Backend Blueprint Specification
-├── 📐 vercel.json                       # Vercel Modern Next.js Deployment Config
-└── 📦 package.json                      # Root Monorepo Scripts
+├── DEPLOYMENT.md                        # Step-by-Step Production Cloud Deployment Manual
+├── README.md                            # Complete Project Documentation & Specification
+├── docker-compose.yml                   # Multi-Container Full-Stack Orchestration
+├── render.yaml                          # Render Backend Blueprint Specification
+├── vercel.json                          # Vercel Modern Next.js Deployment Config
+└── package.json                         # Root Monorepo Scripts
 ```
 
 ---
 
-## 5. Screenshots & Interface Overview
+## 6. Screenshots & Interface Overview
 
-### 📬 Google Mail Workspace & AI Side Companion
+### Google Mail Workspace & AI Side Companion
 - **Header**: Authentic Google Mail logo, Google search pill (`#eaf1fb`) with Smart AI search toggle, profile menu, and live status badge.
-- **Sidebar**: Signature Google floating **`+ Compose`** pill button, unread counts, and Google active pill highlights (`#d3e3fd`).
+- **Sidebar**: Signature Google floating `+ Compose` pill button, unread counts, and Google active pill highlights (`#d3e3fd`).
 - **List Panel**: Star toggles, sender bolding, snippet preview, and hover quick-action bars (Archive, Delete, Mark Read).
 - **Gemini Companion**: Tabbed side panel with Summary, Help me Reply, Explain, Tasks, and Dates.
 - **Compose Modal**: Floating Gmail-style compose card with AI subject suggestion, tone rewrite ribbon, template picker, and Google blue send button.
 
 ---
 
-## 6. Live Demo
+## 7. Live Demo
 - **Frontend (Vercel)**: [https://intellimail-ai-workspace.vercel.app](https://intellimail-ai-workspace.vercel.app)
 
 ---
 
-## 7. Backend API
+## 8. Backend API
 - **Backend Service (Render)**: [https://intellimail-ai-x4tv.onrender.com](https://intellimail-ai-x4tv.onrender.com)
 - **Health Check Endpoint**: [https://intellimail-ai-x4tv.onrender.com/api/health](https://intellimail-ai-x4tv.onrender.com/api/health)
 
 ---
 
-## 8. Setup Instructions (Run Locally)
+## 9. Setup Instructions (Run Locally)
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) v18.0.0 or higher
-- `npm` (bundled with Node.js)
-- [Git](https://git-scm.com/)
+- Node.js v18.0.0 or higher
+- npm (bundled with Node.js)
+- Git
 
 ### Step 1: Clone the Repository
 ```bash
@@ -160,9 +160,9 @@ npm run dev
 
 ---
 
-## 9. Environment Variables
+## 10. Environment Variables
 
-> ⚠️ **Security Notice**: Never commit actual API keys, passwords, or secrets to version control. The repository uses `.env.example` templates.
+> **Security Notice**: Never commit actual API keys, passwords, or secrets to version control. The repository uses `.env.example` templates.
 
 ### Backend (`server/.env`):
 | Variable Name | Description | Example / Default |
@@ -187,7 +187,7 @@ npm run dev
 
 ---
 
-## 10. Automated Test Suite & Verification
+## 11. Automated Test Suite & Verification
 
 Run the full integration test suite covering database operations, authentication, Gmail sync, AI summarization, multi-tone replies, and draft conversions:
 
@@ -203,7 +203,7 @@ node scripts/verify-routes.js
 
 ---
 
-## 11. Final Submission Verification Checklist
+## 12. Final Submission Verification Checklist
 
 - [x] **Project Built & Configured**: Full-stack application developed with Next.js 14 and Express.js.
 - [x] **Working Functionality**: All CRUD operations, email sending, draft auto-save, and AI tools active.
@@ -216,5 +216,5 @@ node scripts/verify-routes.js
 
 ---
 
-## 📄 License
+## License
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
