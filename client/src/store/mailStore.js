@@ -162,11 +162,6 @@ export const useMailStore = create((set, get) => ({
           totalMessages: res.data.total || 0,
           isLoadingMessages: false,
         });
-
-        // If no message selected and messages exist (and not in DRAFTS folder), select first
-        if (!get().selectedMessage && res.data.messages.length > 0 && activeFolder !== 'DRAFTS') {
-          get().selectMessage(res.data.messages[0].id);
-        }
       }
     } catch (err) {
       console.error('Fetch messages error:', err);
