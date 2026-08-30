@@ -23,10 +23,13 @@ export const useMailStore = create((set, get) => ({
   isAiPanelOpen: true,
   isListCollapsed: false,
   isDailySummaryCollapsed: false,
+  viewMode: 'standard', // 'standard' (Gmail Full Reading View) | 'split' (2-pane split)
   toggleAiPanel: () => set((state) => ({ isAiPanelOpen: !state.isAiPanelOpen })),
   setIsAiPanelOpen: (isOpen) => set({ isAiPanelOpen: isOpen }),
   toggleListCollapsed: () => set((state) => ({ isListCollapsed: !state.isListCollapsed })),
   toggleDailySummaryCollapsed: () => set((state) => ({ isDailySummaryCollapsed: !state.isDailySummaryCollapsed })),
+  toggleViewMode: () => set((state) => ({ viewMode: state.viewMode === 'standard' ? 'split' : 'standard' })),
+  clearSelectedMessage: () => set({ selectedMessage: null, selectedThread: null }),
 
   // AI Panel State
   activeAITab: 'summary', // 'summary' | 'reply' | 'explain' | 'actions' | 'dates'
