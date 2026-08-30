@@ -19,6 +19,15 @@ export const useMailStore = create((set, get) => ({
     oauthConfigured: false,
   },
 
+  // Panel Layout State
+  isAiPanelOpen: true,
+  isListCollapsed: false,
+  isDailySummaryCollapsed: false,
+  toggleAiPanel: () => set((state) => ({ isAiPanelOpen: !state.isAiPanelOpen })),
+  setIsAiPanelOpen: (isOpen) => set({ isAiPanelOpen: isOpen }),
+  toggleListCollapsed: () => set((state) => ({ isListCollapsed: !state.isListCollapsed })),
+  toggleDailySummaryCollapsed: () => set((state) => ({ isDailySummaryCollapsed: !state.isDailySummaryCollapsed })),
+
   // AI Panel State
   activeAITab: 'summary', // 'summary' | 'reply' | 'explain' | 'actions' | 'dates'
   aiData: {

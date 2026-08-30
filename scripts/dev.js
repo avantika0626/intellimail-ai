@@ -5,7 +5,7 @@ const rootDir = path.resolve(__dirname, '..');
 const serverDir = path.resolve(rootDir, 'server');
 const clientDir = path.resolve(rootDir, 'client');
 
-console.log('🚀 Launching Agentflow_AI Services...\n');
+console.log('🚀 Launching IntelliMail AI Services...\n');
 
 // 1. Start Backend via fork
 const serverProc = fork(path.join(serverDir, 'src/server.js'), [], {
@@ -13,7 +13,7 @@ const serverProc = fork(path.join(serverDir, 'src/server.js'), [], {
   env: { ...process.env, PORT: '5000' },
 });
 
-// 2. Start Frontend via npm run dev with stdio inherit
+// 2. Start Frontend via npm run dev
 const clientProc = spawn('npm', ['run', 'dev'], {
   cwd: clientDir,
   stdio: 'inherit',
@@ -22,7 +22,7 @@ const clientProc = spawn('npm', ['run', 'dev'], {
 });
 
 function cleanup() {
-  console.log('\n🛑 Shutting down Agentflow_AI...');
+  console.log('\n🛑 Shutting down IntelliMail AI...');
   try { serverProc.kill(); } catch {}
   try { clientProc.kill(); } catch {}
   process.exit(0);

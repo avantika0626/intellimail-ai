@@ -86,8 +86,16 @@ export default function EmailList() {
           </span>
         </div>
 
-        <div className="flex items-center gap-1 text-xs text-[#5f6368] font-mono">
-          <span>{messages.length > 0 ? `1–${messages.length} of ${messages.length}` : '0 of 0'}</span>
+        <div className="flex items-center gap-1 text-xs text-[#5f6368]">
+          <span className="font-mono">{messages.length > 0 ? `1–${messages.length}` : '0'}</span>
+          <button
+            type="button"
+            onClick={toggleListCollapsed}
+            title="Minimize email list"
+            className="p-1 rounded hover:bg-[#f1f3f4] text-[#5f6368] hover:text-[#1f1f1f] transition-colors ml-1"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
         </div>
       </div>
 

@@ -19,11 +19,21 @@ import {
   Send,
   Loader2,
   ChevronDown,
+  ChevronRight,
+  ChevronLeft,
   Layers,
   ArrowLeft,
   MoreVertical,
   Printer,
   Tag,
+  Maximize2,
+  Minimize2,
+  PanelLeftClose,
+  PanelLeftOpen,
+  PanelRightClose,
+  PanelRightOpen,
+  SidebarClose,
+  SidebarOpen,
 } from 'lucide-react';
 import { useMailStore } from '../../store/mailStore';
 import AISummaryCard from '../ai/AISummaryCard';
@@ -49,6 +59,11 @@ export default function EmailViewer() {
     explainEmail,
     extractActions,
     extractDates,
+    isAiPanelOpen,
+    toggleAiPanel,
+    setIsAiPanelOpen,
+    isListCollapsed,
+    toggleListCollapsed,
   } = useMailStore();
 
   if (!selectedMessage) {
@@ -94,11 +109,28 @@ export default function EmailViewer() {
     });
   };
 
+  const openAiTool = (toolName, executeFn) => {
+    setActiveAITab(toolName);
+    setIsAiPanelOpen(true);
+    if (executeFn) executeFn();
+  };
+
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#ffffff]">
       {/* Top Gmail Action Toolbar */}
       <div className="h-12 border-b border-[#f1f3f4] px-4 flex items-center justify-between bg-[#ffffff] shrink-0">
         <div className="flex items-center gap-1">
+          {/* List Split View Toggle */}
+          <button
+            onClick={toggleListCollapsed}
+            title={isListCollapsed ? 'Show email list' : 'Maximize reading pane'}
+            className="p-2 rounded-full text-[#444746] hover:text-[#0b57d0] hover:bg-[#e8f0fe] transition-colors mr-1"
+          >
+            {isListCollapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+          </button>
+
+          <div className="h-4 w-px bg-[#dadce0] mx-1" />
+
           <button
             onClick={() => archiveMessage(selectedMessage.id)}
             title="Archive"
@@ -140,6 +172,22 @@ export default function EmailViewer() {
           >
             <Reply className="w-3.5 h-3.5 text-[#0b57d0]" />
             <span>Reply</span>
+          </button>
+
+          {/* Gemini AI Side Panel Toggle Button */}
+          <button
+            onClick={toggleAiPanel}
+            className={`px-2.5 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5 border transition-all ${
+              isAiPanelOpen
+                ? 'bg-[#f3e8ff] border-[#d8b4fe] text-[#6b21a8]'
+                : 'bg-[#ffffff] border-[#dadce0] text-[#444746] hover:bg-[#f1f3f4]'
+            }`}
+            title={isAiPanelOpen ? 'Minimize Gemini AI Panel' : 'Expand Gemini AI Panel'}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#7c3aed]" />
+            <span className="hidden sm:inline font-['Google_Sans',sans-serif]">
+              {isAiPanelOpen ? 'Hide AI' : 'Gemini AI'}
+            </span>
           </button>
         </div>
       </div>
@@ -252,103 +300,156 @@ export default function EmailViewer() {
           )}
         </div>
 
-        {/* Right: Google Gemini AI Companion Panel */}
-        <div className="w-80 lg:w-96 border-l border-[#e0e2ec] bg-[#ffffff] flex flex-col shrink-0">
-          {/* Gemini AI Header */}
-          <div className="p-3 border-b border-[#f1f3f4] flex items-center gap-2 bg-[#f8fafd]">
-            <Sparkles className="w-4 h-4 text-[#7c3aed]" />
-            <span className="text-xs font-medium font-['Google_Sans',sans-serif] text-[#1f1f1f]">
-              Gemini AI in IntelliMail
-            </span>
+        {/* Right: Google Gemini AI Companion Panel (Collapsible & Expandable) */}
+        {isAiPanelOpen ? (
+          <div className="w-72 lg:w-80 border-l border-[#e0e2ec] bg-[#ffffff] flex flex-col shrink-0 transition-all duration-200">
+            {/* Gemini AI Header with Minimize Button */}
+            <div className="p-3 border-b border-[#f1f3f4] flex items-center justify-between bg-[#f8fafd]">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#7c3aed]" />
+                <span className="text-xs font-medium font-['Google_Sans',sans-serif] text-[#1f1f1f]">
+                  Gemini AI Companion
+                </span>
+              </div>
+
+              <button
+                onClick={toggleAiPanel}
+                className="p-1 rounded-full hover:bg-[#e0e2ec] text-[#5f6368] hover:text-[#1f1f1f] transition-colors"
+                title="Minimize panel"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Gemini Tabs */}
+            <div className="p-1.5 border-b border-[#f1f3f4] grid grid-cols-5 gap-1 bg-[#ffffff]">
+              <button
+                onClick={() => openAiTool('summary', generateAISummary)}
+                className={`p-1.5 rounded-xl text-[10px] font-medium flex flex-col items-center gap-1 transition-all ${
+                  activeAITab === 'summary'
+                    ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
+                    : 'text-[#444746] hover:bg-[#f1f3f4]'
+                }`}
+                title="Summary"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Summary</span>
+              </button>
+
+              <button
+                onClick={() => openAiTool('reply', generateAIReply)}
+                className={`p-1.5 rounded-xl text-[10px] font-medium flex flex-col items-center gap-1 transition-all ${
+                  activeAITab === 'reply'
+                    ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
+                    : 'text-[#444746] hover:bg-[#f1f3f4]'
+                }`}
+                title="Reply"
+              >
+                <Bot className="w-3.5 h-3.5" />
+                <span>Reply</span>
+              </button>
+
+              <button
+                onClick={() => openAiTool('explain', explainEmail)}
+                className={`p-1.5 rounded-xl text-[10px] font-medium flex flex-col items-center gap-1 transition-all ${
+                  activeAITab === 'explain'
+                    ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
+                    : 'text-[#444746] hover:bg-[#f1f3f4]'
+                }`}
+                title="Explain"
+              >
+                <HelpCircle className="w-3.5 h-3.5" />
+                <span>Explain</span>
+              </button>
+
+              <button
+                onClick={() => openAiTool('actions', extractActions)}
+                className={`p-1.5 rounded-xl text-[10px] font-medium flex flex-col items-center gap-1 transition-all ${
+                  activeAITab === 'actions'
+                    ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
+                    : 'text-[#444746] hover:bg-[#f1f3f4]'
+                }`}
+                title="Tasks"
+              >
+                <ListTodo className="w-3.5 h-3.5" />
+                <span>Tasks</span>
+              </button>
+
+              <button
+                onClick={() => openAiTool('dates', extractDates)}
+                className={`p-1.5 rounded-xl text-[10px] font-medium flex flex-col items-center gap-1 transition-all ${
+                  activeAITab === 'dates'
+                    ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
+                    : 'text-[#444746] hover:bg-[#f1f3f4]'
+                }`}
+                title="Dates"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Dates</span>
+              </button>
+            </div>
+
+            {/* AI Panel Content */}
+            <div className="flex-1 overflow-y-auto p-3 custom-scrollbar bg-[#f8fafd]">
+              {activeAITab === 'summary' && <AISummaryCard />}
+              {activeAITab === 'reply' && <AIReplyGenerator onInsert={(text) => openCompose({ body: text, threadId: selectedMessage.threadId })} />}
+              {activeAITab === 'explain' && <ExplainEmailModal />}
+              {activeAITab === 'actions' && <ActionItemsList />}
+              {activeAITab === 'dates' && <DeadlinesList />}
+            </div>
           </div>
-
-          {/* Gemini Tabs */}
-          <div className="p-1.5 border-b border-[#f1f3f4] grid grid-cols-5 gap-1 bg-[#ffffff]">
+        ) : (
+          /* Collapsed Thin Icon Rail (Google Side Panel Style) */
+          <div className="w-12 border-l border-[#e0e2ec] bg-[#f8fafd] flex flex-col items-center py-3 gap-2 shrink-0 transition-all duration-200 select-none">
             <button
-              onClick={() => {
-                setActiveAITab('summary');
-                generateAISummary();
-              }}
-              className={`p-1.5 rounded-xl text-[11px] font-medium flex flex-col items-center gap-1 transition-all ${
-                activeAITab === 'summary'
-                  ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
-                  : 'text-[#444746] hover:bg-[#f1f3f4]'
-              }`}
+              onClick={toggleAiPanel}
+              className="p-2 rounded-full bg-[#f3e8ff] hover:bg-[#ebd5ff] text-[#7c3aed] shadow-sm mb-2"
+              title="Expand Gemini AI Panel"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Summary</span>
+              <Sparkles className="w-4 h-4" />
             </button>
 
             <button
-              onClick={() => {
-                setActiveAITab('reply');
-                generateAIReply();
-              }}
-              className={`p-1.5 rounded-xl text-[11px] font-medium flex flex-col items-center gap-1 transition-all ${
-                activeAITab === 'reply'
-                  ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
-                  : 'text-[#444746] hover:bg-[#f1f3f4]'
-              }`}
+              onClick={() => openAiTool('summary', generateAISummary)}
+              className="p-2 rounded-xl text-[#444746] hover:bg-[#e0e2ec] hover:text-[#0b57d0] transition-colors"
+              title="AI Summary"
             >
-              <Bot className="w-3.5 h-3.5" />
-              <span>Reply</span>
+              <Sparkles className="w-4 h-4 text-[#7c3aed]" />
             </button>
 
             <button
-              onClick={() => {
-                setActiveAITab('explain');
-                explainEmail();
-              }}
-              className={`p-1.5 rounded-xl text-[11px] font-medium flex flex-col items-center gap-1 transition-all ${
-                activeAITab === 'explain'
-                  ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
-                  : 'text-[#444746] hover:bg-[#f1f3f4]'
-              }`}
+              onClick={() => openAiTool('reply', generateAIReply)}
+              className="p-2 rounded-xl text-[#444746] hover:bg-[#e0e2ec] hover:text-[#0b57d0] transition-colors"
+              title="Help me Reply"
             >
-              <HelpCircle className="w-3.5 h-3.5" />
-              <span>Explain</span>
+              <Bot className="w-4 h-4 text-[#0b57d0]" />
             </button>
 
             <button
-              onClick={() => {
-                setActiveAITab('actions');
-                extractActions();
-              }}
-              className={`p-1.5 rounded-xl text-[11px] font-medium flex flex-col items-center gap-1 transition-all ${
-                activeAITab === 'actions'
-                  ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
-                  : 'text-[#444746] hover:bg-[#f1f3f4]'
-              }`}
+              onClick={() => openAiTool('explain', explainEmail)}
+              className="p-2 rounded-xl text-[#444746] hover:bg-[#e0e2ec] hover:text-[#0b57d0] transition-colors"
+              title="Explain This Email"
             >
-              <ListTodo className="w-3.5 h-3.5" />
-              <span>Tasks</span>
+              <HelpCircle className="w-4 h-4 text-[#0b57d0]" />
             </button>
 
             <button
-              onClick={() => {
-                setActiveAITab('dates');
-                extractDates();
-              }}
-              className={`p-1.5 rounded-xl text-[11px] font-medium flex flex-col items-center gap-1 transition-all ${
-                activeAITab === 'dates'
-                  ? 'bg-[#c2e7ff] text-[#001d35] font-bold'
-                  : 'text-[#444746] hover:bg-[#f1f3f4]'
-              }`}
+              onClick={() => openAiTool('actions', extractActions)}
+              className="p-2 rounded-xl text-[#444746] hover:bg-[#e0e2ec] hover:text-[#137333] transition-colors"
+              title="Action Items Checklist"
             >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Dates</span>
+              <ListTodo className="w-4 h-4 text-[#137333]" />
+            </button>
+
+            <button
+              onClick={() => openAiTool('dates', extractDates)}
+              className="p-2 rounded-xl text-[#444746] hover:bg-[#e0e2ec] hover:text-[#b06000] transition-colors"
+              title="Dates & Deadlines"
+            >
+              <Calendar className="w-4 h-4 text-[#b06000]" />
             </button>
           </div>
-
-          {/* AI Panel Content */}
-          <div className="flex-1 overflow-y-auto p-4 custom-scrollbar bg-[#f8fafd]">
-            {activeAITab === 'summary' && <AISummaryCard />}
-            {activeAITab === 'reply' && <AIReplyGenerator onInsert={(text) => openCompose({ body: text, threadId: selectedMessage.threadId })} />}
-            {activeAITab === 'explain' && <ExplainEmailModal />}
-            {activeAITab === 'actions' && <ActionItemsList />}
-            {activeAITab === 'dates' && <DeadlinesList />}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
