@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f6f8fc;
+  --foreground: #1f1f1f;
+  --google-blue: #1a73e8;
+  --google-red: #ea4335;
+  --google-yellow: #fbbc04;
+  --google-green: #34a853;
+  --gmail-active: #d3e3fd;
+  --gmail-active-text: #041e49;
+  --gmail-search-bg: #eaf1fb;
+  --gmail-card-bg: #ffffff;
+  --gmail-border: #e0e2ec;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Google-style scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bdc1c6;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #bdc1c6;
+}
+
+/* Gmail Rendered Email Content */
+.email-rendered-content {
+  color: #202124;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.email-rendered-content p {
+  margin-bottom: 0.75rem;
+}
+
+.email-rendered-content a {
+  color: #1a73e8;
+  text-decoration: underline;
+}
+
+.email-rendered-content ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.email-rendered-content ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.email-rendered-content blockquote {
+  border-left: 3px solid #dadce0;
+  padding-left: 0.75rem;
+  margin: 0.75rem 0;
+  color: #5f6368;
+}
+
+.email-rendered-content table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.email-rendered-content th,
+.email-rendered-content td {
+  border: 1px solid #dadce0;
+  padding: 8px 12px;
+}
