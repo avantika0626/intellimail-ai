@@ -62,6 +62,24 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Root Welcome Endpoint
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    service: 'IntelliMail AI Intelligent Workspace Engine API',
+    version: '1.0.0',
+    documentation: 'https://github.com/avantika0626/intellimail-ai#readme',
+    health: '/api/health',
+    endpoints: {
+      auth: '/api/auth',
+      gmail: '/api/gmail',
+      ai: '/api/ai',
+      activity: '/api/activity',
+      settings: '/api/settings',
+    },
+  });
+});
+
 // 3. Mount API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/gmail', gmailRoutes);
